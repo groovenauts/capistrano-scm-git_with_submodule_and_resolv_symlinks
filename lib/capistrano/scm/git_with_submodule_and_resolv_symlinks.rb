@@ -65,10 +65,10 @@ module Capistrano
       end
 
       def real_branch
-        @real_branch ||= if backend.test(:git, :"rev-parse", fetch(:branch))
-                           fetch(:branch)
-                         else
+        @real_branch ||= if backend.test(:git, :"rev-parse", "origin/#{fetch(:branch)}")
                            "origin/#{fetch(:branch)}"
+                         else
+                           fetch(:branch)
                          end
       end
 
