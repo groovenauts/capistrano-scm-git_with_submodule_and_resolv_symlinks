@@ -2,16 +2,18 @@
 
 [![Gem Version](https://badge.fury.io/rb/capistrano-scm-git_with_submodule_and_resolv_symlinks.png)](https://rubygems.org/gems/capistrano-scm-git_with_submodule_and_resolv_symlinks) [![Build Status](https://secure.travis-ci.org/groovenauts/capistrano-scm-git_with_submodule_and_resolv_symlinks.png)](https://travis-ci.org/groovenauts/capistrano-scm-git_with_submodule_and_resolv_symlinks)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/capistrano/scm/git_with_submodule_and_resolv_symlinks.rb`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is Capistrano [Custom SCM plugin](http://capistranorb.com/documentation/advanced-features/custom-scm/), which supports:
 
-TODO: Delete this and the text above, and describe your gem
+- Git with submodule
+- Resolving symlinks
+- Subtree
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'capistrano-scm-git_with_submodule_and_resolv_symlinks'
+gem 'capistrano-scm-git_with_submodule_and_resolv_symlinks', require: false
 ```
 
 And then execute:
@@ -22,9 +24,12 @@ Or install it yourself as:
 
     $ gem install capistrano-scm-git_with_submodule_and_resolv_symlinks
 
-## Usage
+And add these lines to your Capfile:
 
-TODO: Write usage instructions here
+```ruby
+require "capistrano/scm/git_with_submodule_and_resolv_symlinks"
+install_plugin Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks
+```
 
 ## Development
 
