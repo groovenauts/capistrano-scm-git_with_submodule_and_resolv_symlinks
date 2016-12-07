@@ -17,8 +17,8 @@ module Capistrano
         }
         set_if_empty :"#{nsp}_environmental_variables", lambda {
           {
-            :"#{nsp}_askpass" => "/bin/echo",
-            :"#{nsp}_ssh" => fetch(:"#{nsp}_wrapper_path")
+            git_askpass: "/bin/echo",
+            git_ssh: fetch(:"#{nsp}_wrapper_path")
           }
         }
       end
