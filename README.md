@@ -24,12 +24,29 @@ Or install it yourself as:
 
     $ gem install capistrano-scm-git_with_submodule_and_resolv_symlinks
 
-And add these lines to your Capfile:
+## Usage
+
+Add these lines to your Capfile:
 
 ```ruby
 require "capistrano/scm/git_with_submodule_and_resolv_symlinks"
 install_plugin Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks
 ```
+
+## Incompatibilties with Capistrano::SCM::Git
+
+### `repo_path` is non-bare repository
+
+Capistrano::SCM::Git creates `repo_path` as bare repository (by `git clone --mirror url repo_path`),
+but Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks creates `repo_path` as non-bare repository
+(by `git clone url repo_path`).
+
+If you want to switch SCM, delete `repo_path` before deploy.
+
+### `current_revision` is abbreviated
+
+With Capistrano::SCM::Git, `current_version` is non-abbreviated commit hash (like `81cec13b777ff46348693d327fc8e7832f79bf43`),
+but with Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks, `current_version` is abbreviated (like `81cec13`).
 
 ## Development
 
