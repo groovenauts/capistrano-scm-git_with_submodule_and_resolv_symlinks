@@ -8,6 +8,20 @@ This is Capistrano [Custom SCM plugin](http://capistranorb.com/documentation/adv
 - Resolving symlinks
 - Subtree
 
+### Git with submodule
+
+Capistrano::SCM::Git does not support git submodule,
+but Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks supports.
+
+### Resolving symlinks
+
+Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks transforms symlinks into
+referent files/directories by `rsync --copy-links ...` command.
+
+### Subtree
+
+Configuration variable `:repo_tree` is supported as same as Capistrano::SCM::Git
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -47,6 +61,11 @@ If you want to switch SCM, delete `repo_path` before deploy.
 
 With Capistrano::SCM::Git, `current_version` is non-abbreviated commit hash (like `81cec13b777ff46348693d327fc8e7832f79bf43`),
 but with Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks, `current_version` is abbreviated (like `81cec13`).
+
+### Shallow clone is not supported
+
+Capistrano::SCM::Git supports shallow clone by configuration variable `:git_shallow_clone`,
+but Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks does not support.
 
 ## Development
 
