@@ -13,7 +13,7 @@ end
 module Capistrano
   class SCM
     class GitWithSubmoduleAndResolvSymlinks < ::Capistrano::SCM::Plugin
-      VERSION = "0.1.0"
+      VERSION = "0.1.1"
     end
   end
 end
