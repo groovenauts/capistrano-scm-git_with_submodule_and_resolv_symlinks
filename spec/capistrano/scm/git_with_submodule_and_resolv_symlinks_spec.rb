@@ -64,8 +64,10 @@ module Capistrano
       describe "with branch" do
         it "should run git remote update, git checkout, git submodle update" do
           env.set(:branch, "real-branch")
+          env.set(:repo_url, "url")
 
           backend.expects(:test).with(:git, :"rev-parse", "origin/real-branch").returns(true)
+          backend.expects(:execute).with(:git, :remote, "set-url", "origin", "url")
           backend.expects(:execute).with(:git, :remote, :update, "--prune")
           backend.expects(:execute).with(:git, :checkout, "--detach", "origin/real-branch")
           backend.expects(:execute).with(:git, :submodule, :update, "--init")
@@ -77,8 +79,10 @@ module Capistrano
       describe "with tag/commit" do
         it "should run git remote update, git checkout, git submodle update" do
           env.set(:branch, "tag-or-commit")
+          env.set(:repo_url, "url")
 
           backend.expects(:test).with(:git, :"rev-parse", "origin/tag-or-commit").returns(false)
+          backend.expects(:execute).with(:git, :remote, "set-url", "origin", "url")
           backend.expects(:execute).with(:git, :remote, :update, "--prune")
           backend.expects(:execute).with(:git, :checkout, "--detach", "tag-or-commit")
           backend.expects(:execute).with(:git, :submodule, :update, "--init")
