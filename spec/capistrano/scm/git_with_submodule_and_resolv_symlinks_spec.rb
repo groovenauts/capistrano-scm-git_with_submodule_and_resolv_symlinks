@@ -62,7 +62,7 @@ module Capistrano
 
     describe "#update_mirror" do
       describe "with branch" do
-        it "should run git remote update, git checkout, git submodle update" do
+        it "should run git remote set-url, git remote update, git checkout, git submodle update" do
           env.set(:branch, "real-branch")
           env.set(:repo_url, "url")
 
@@ -77,7 +77,7 @@ module Capistrano
       end
 
       describe "with tag/commit" do
-        it "should run git remote update, git checkout, git submodle update" do
+        it "should run git remote set-url, git remote update, git checkout, git submodle update" do
           env.set(:branch, "tag-or-commit")
           env.set(:repo_url, "url")
 
