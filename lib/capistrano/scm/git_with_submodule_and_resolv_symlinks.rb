@@ -47,6 +47,7 @@ module Capistrano
       end
 
       def update_mirror
+        git :remote, "set-url", "origin", repo_url
         git :remote, :update, "--prune"
         git :checkout, "--detach", real_branch
         git :submodule, :update, "--init"
