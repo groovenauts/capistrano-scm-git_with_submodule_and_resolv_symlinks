@@ -1,5 +1,6 @@
 require 'capistrano/scm/plugin'
 require 'capistrano/scm/git_with_submodule_and_resolv_symlinks/version'
+require 'shellwords'
 
 module Capistrano
   class SCM
@@ -12,7 +13,7 @@ module Capistrano
         set_if_empty :"#{nsp}_wrapper_path", lambda {
           # Try to avoid permissions issues when multiple users deploy the same app
           # by using different file names in the same dir for each deployer and stage.
-          suffix = [:application, :stage, :local_user].map { |key| fetch(key).to_s }.join("-").gsub(/\s+/, "-")
+          suffix = [:application, :stage, :local_user].map { |key| fetch(key).to_s }.join("-")
           "#{fetch(:tmp_dir)}/git-ssh-#{suffix}.sh"
         }
         set_if_empty :"#{nsp}_environmental_variables", lambda {
