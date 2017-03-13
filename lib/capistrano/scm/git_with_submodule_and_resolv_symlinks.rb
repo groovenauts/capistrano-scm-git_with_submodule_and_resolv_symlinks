@@ -1,6 +1,8 @@
 require 'capistrano/scm/plugin'
 require 'capistrano/scm/git_with_submodule_and_resolv_symlinks/version'
+require 'cgi'
 require 'shellwords'
+require 'uri'
 
 module Capistrano
   class SCM
@@ -40,15 +42,15 @@ module Capistrano
       end
 
       def check_repo_is_reachable
-        git :'ls-remote', repo_url, "HEAD"
+        git :'ls-remote', git_repo_url, "HEAD"
       end
 
       def clone_repo
-        git :clone, repo_url, repo_path.to_s
+        git :clone, git_repo_url, repo_path.to_s
       end
 
       def update_mirror
-        git :remote, "set-url", "origin", repo_url
+        git :remote, "set-url", "origin", git_repo_url
         git :remote, :update, "--prune"
         git :checkout, "--detach", real_branch
         git :submodule, :update, "--init"
@@ -77,6 +79,21 @@ module Capistrano
       def git(*args)
         args.unshift :git
         backend.execute(*args)
+      end
+
+      def git_repo_url
+        if fetch(:git_http_username) && fetch(:git_http_password)
+          URI.parse(repo_url).tap do |repo_uri|
+            repo_uri.user     = fetch(:git_http_username)
+            repo_uri.password = CGI.escape(fetch(:git_http_password))
+          end.to_s
+        elsif fetch(:git_http_username)
+          URI.parse(repo_url).tap do |repo_uri|
+            repo_uri.user = fetch(:git_http_username)
+          end.to_s
+        else
+          repo_url
+        end
       end
     end
   end
