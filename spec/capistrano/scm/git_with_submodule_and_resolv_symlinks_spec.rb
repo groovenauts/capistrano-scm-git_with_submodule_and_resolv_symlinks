@@ -143,9 +143,9 @@ module Capistrano
         it "should capture git rev-list" do
           env.set(:branch, "real-branch")
           backend.expects(:test).with(:git, :"rev-parse", "origin/real-branch").returns(true)
-          backend.expects(:capture).with(:git, "rev-list", "--max-count=1", "--abbrev-commit", "origin/real-branch").returns("81cec13")
+          backend.expects(:capture).with(:git, "rev-list", "--max-count=1", "origin/real-branch").returns("81cec13b777ff46348693d327fc8e7832f79bf44")
           revision = subject.fetch_revision
-          expect(revision).to eq("81cec13")
+          expect(revision).to eq("81cec13b777ff46348693d327fc8e7832f79bf44")
         end
       end
 
