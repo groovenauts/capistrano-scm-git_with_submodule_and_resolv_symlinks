@@ -65,7 +65,7 @@ module Capistrano
       end
 
       def fetch_revision
-        backend.capture(:git, "rev-list", "--max-count=1", "--abbrev-commit", real_branch)
+        backend.capture(:git, "rev-list", "--max-count=1", real_branch)
       end
 
       def real_branch

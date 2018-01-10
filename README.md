@@ -57,11 +57,6 @@ but Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks creates `repo_path` as no
 
 If you want to switch SCM, delete `repo_path` before deploy.
 
-### `current_revision` is abbreviated
-
-With Capistrano::SCM::Git, `current_version` is non-abbreviated commit hash (like `81cec13b777ff46348693d327fc8e7832f79bf43`),
-but with Capistrano::SCM::GitWithSubmoduleAndResolvSymlinks, `current_version` is abbreviated (like `81cec13`).
-
 ### Shallow clone is not supported
 
 Capistrano::SCM::Git supports shallow clone by configuration variable `:git_shallow_clone`,
