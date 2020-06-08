@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: [2.5, 2.6, 2.7]
+      fail-fast: false
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+
+      - run: ruby --version
+      - run: gem --version
+      - run: gem env
+      - run: bundle --version
+
+      - run: bundle config path vendor/bundle
+      - run: bundle install --jobs=4 --retry=3
+      - run: bundle exec rake spec
+
