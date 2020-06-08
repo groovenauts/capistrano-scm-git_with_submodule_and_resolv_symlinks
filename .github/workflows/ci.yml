@@ -19,6 +19,12 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+
+      - run: ruby --version
+      - run: gem --version
+      - run: gem env
+      - run: bundle --version
+
       - run: bundle config path vendor/bundle
       - run: bundle install --jobs=4 --retry=3
       - run: bundle exec rake spec
